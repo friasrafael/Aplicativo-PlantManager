@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
+
+import wateringImg from '../assets/watering.png' //importando uma imagem para a tela Welcome
 
 export function Welcome() {
     return (
         <View>
             <Text>
-                Bem Vindo!
+                Gerencie suas plantas de forma fácil
             </Text>
+
+            <Image source={wateringImg} />
+
         </View>
     )
 }
