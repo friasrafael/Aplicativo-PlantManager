@@ -5,4 +5,4 @@ O aplicativo foi desenvolvido durante o Next Level Week #05 promovido pela Rocke
 O projeto utiliza React Native, Expo e TypeScript.
 
 Abaixo você pode ver os frames desenvolvidos neste projeto:
-![stack Overflow](https://imgur.com/HWiGqM5.png)
+![PlantManager](https://imgur.com/HWiGqM5.png)
