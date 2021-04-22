@@ -1,4 +1,4 @@
-export default {
+export default { //Objeto que exporta todas as cores do protótipo
   green: '#32B768',
   green_dark: '#2B7A4B',
   green_light: '#DAF2E4',
