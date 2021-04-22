@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
     View,
     Text,
     TextInput,
-    KeyboardAvoidingView //Responsável por subir o conteúdo da tela quando o teclado é acionado
+    KeyboardAvoidingView, //Responsável por subir o conteúdo da tela quando o teclado é acionado
+    Platform
 } from 'react-native';
 
 import { Button } from '../components/Button';
@@ -15,21 +16,48 @@ import fonts from '../styles/fonts';
 import colors from '../styles/colors';
 
 export function UserIdentification() {
+
+    const [isFocused, setIsFocused] = useState(false); //Verifica se o foco está no input. Neste caso, o padrão é false.
+    const [isFilled, setIsFilled] = useState(false); //Vetifica se temconteúdo no input
+    const [name, setName] = useState<string>(); //Armazena o nome do usuário
+
+    function handleInputBlur() {
+        setIsFocused(false); //Executa se o foco no input for false
+        setIsFilled(!!name); //Pega o name quando o foco sair do input
+    }
+
+    function handleInputFocus() {   
+        setIsFocused(true); //Executa se o foco no input for true
+    }
+
+    function handleInputChange(value: string) { 
+        setIsFocused(!!value) //Executa se o conteúdo dentro do input for verdadeiro
+        setName(value) //Armazena o valor do input
+
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={styles.container}>
+
                 <View style={styles.content}>
                     <View style={styles.form}>
                         <Text style={styles.emoji}>
-                            😄
-                    </Text>
+                            { isFilled ? '😎' : '😄' }
+                        </Text>
                         <Text style={styles.title}>
                             Como podemos {'\n'}
-                        chamar você?
-                    </Text>
+                            chamar você?
+                            </Text>
                         <TextInput
-                            style={styles.input}
+                            style={[ //É possível passar mais de um estilo a um elemento criando um Array
+                                styles.input,
+                                (isFocused || isFilled) && { borderColor: colors.green } //Quando o isFocused for verdadeiro a ,borda do input mudará para verde. Quando algo for digitado ele se manterá verde enquanto houver conteúdo.
+                            ]}
                             placeholder='Digite um nome'
+                            onBlur={handleInputBlur}
+                            onFocus={handleInputFocus}
+                            onChangeText={handleInputChange} //
                         />
                         <View style={styles.footer}>
                             <Button />
