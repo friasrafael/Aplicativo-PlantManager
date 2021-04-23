@@ -1,7 +1,7 @@
 import React from 'react'; //Toda estrtutura de React deve ser iniciada com a importação do React
 import AppLoading from 'expo-app-loading';
 
-import { UserIdentification } from './src/pages/UserIdentification'; //Importou a pa´gina "Welcome" para o app
+import { Confirmation } from './src/pages/Confirmation'; //Importou a pa´gina "Welcome" para o app
 import {
   useFonts,
   Jost_400Regular,
@@ -19,7 +19,7 @@ export default function App() { //Aqui exportamos o App
   
 
   return (
-    <UserIdentification /> //Tag da página inicial
+    <Confirmation /> //Tag da página inicial
   )
 }
 

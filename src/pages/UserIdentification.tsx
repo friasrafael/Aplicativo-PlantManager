@@ -6,7 +6,6 @@ import {
     Text,
     TextInput,
     KeyboardAvoidingView, //Responsável por subir o conteúdo da tela quando o teclado é acionado
-    Platform
 } from 'react-native';
 
 import { Button } from '../components/Button';
