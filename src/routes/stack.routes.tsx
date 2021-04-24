@@ -23,7 +23,7 @@ const AppRoutes: React.FC = () => (
         {/* <stackRoutes.Screen
             name="Welcome"
             component={Welcome}
-        />
+        /> */}
 
         <stackRoutes.Screen
             name="UserIdentification"
@@ -33,7 +33,7 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen
             name="Confirmation"
             component={Confirmation}
-        /> */}
+        /> 
 
         <stackRoutes.Screen
             name="PlantSelect"

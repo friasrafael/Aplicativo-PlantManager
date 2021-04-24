@@ -7,15 +7,15 @@ import {
     TextInput,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
-    Keyboard 
+    Keyboard,
+    Alert
 } from 'react-native'; //Responsável por subir o conteúdo da tela quando o teclado é acionado
-
 import { Button } from '../components/Button';
+import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { } from '@expo/vector-icons'
 import fonts from '../styles/fonts';
 import colors from '../styles/colors';
-import { useNavigation } from '@react-navigation/core';
 
 export function UserIdentification() {
 
@@ -26,7 +26,12 @@ export function UserIdentification() {
 
     const navigation = useNavigation();
 
-    function handleSubmit() {
+    async function handleSubmit() {
+        if (!name)
+            return Alert.alert('Queremos saber seu nome! 😢')
+
+        await AsyncStorage.setItem('@plantmanager:user', name);
+
         navigation.navigate('Confirmation')
     }
 
@@ -50,33 +55,33 @@ export function UserIdentification() {
             <KeyboardAvoidingView style={styles.container}>
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.content}>
-                    <View style={styles.form}>
-                        <Text style={styles.emoji}>
-                            {isFilled ? '😎' : '😄'}
-                        </Text>
-                        <Text style={styles.title}>
-                            Como podemos {'\n'}
+                    <View style={styles.content}>
+                        <View style={styles.form}>
+                            <Text style={styles.emoji}>
+                                {isFilled ? '😎' : '😄'}
+                            </Text>
+                            <Text style={styles.title}>
+                                Como podemos {'\n'}
                             chamar você?
                             </Text>
-                        <TextInput
-                            style={[ //É possível passar mais de um estilo a um elemento criando um Array
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.green } //Quando o isFocused for verdadeiro a ,borda do input mudará para verde. Quando algo for digitado ele se manterá verde enquanto houver conteúdo.
-                            ]}
-                            placeholder='Digite um nome'
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange} //
-                        />
-                        <View style={styles.footer}>
-                            <Button
-                                title='Confirmar'
-                                onPress={handleSubmit}
+                            <TextInput
+                                style={[ //É possível passar mais de um estilo a um elemento criando um Array
+                                    styles.input,
+                                    (isFocused || isFilled) && { borderColor: colors.green } //Quando o isFocused for verdadeiro a ,borda do input mudará para verde. Quando algo for digitado ele se manterá verde enquanto houver conteúdo.
+                                ]}
+                                placeholder='Digite um nome'
+                                onBlur={handleInputBlur}
+                                onFocus={handleInputFocus}
+                                onChangeText={handleInputChange} //
                             />
+                            <View style={styles.footer}>
+                                <Button
+                                    title='Confirmar'
+                                    onPress={handleSubmit}
+                                />
+                            </View>
                         </View>
                     </View>
-                </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </SafeAreaView>
