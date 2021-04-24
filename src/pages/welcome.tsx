@@ -20,8 +20,18 @@ import wateringImg from '../assets/watering.png' //importando uma imagem para a 
 import colors from '../styles/colors'; //Importou o objeto "colors" dentro da pasta "style do projeto, que contém todas as cores utiliadas na construção do protótipo"
 import fonts from '../styles/fonts'; //Importa o doc.ts que contém as fontes que serão utilizadas no app
 import { Feather } from '@expo/vector-icons'; //Importando biblioteca de ícones do RN. Feather é uma família específica de ícones, existem várias.
+//DESCOMENTAR!!!
+// import { useNavigation } from '@react-navigation/core';
 
 export function Welcome() {
+    //DESCOMENTAR!!
+    // const navigation = useNavigation();
+
+    //DESCOMENTAR!!
+    // function handleStart() {
+    //     navigation.navigate('UserIdentification')
+    // }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.wrapper}>
@@ -44,6 +54,8 @@ export function Welcome() {
                 <TouchableOpacity
                     style={styles.button}
                     activeOpacity={0.7}
+                    //DESCOMENTAR!!
+                    // onPress={handleStart}
                 >
 
                     <Feather
@@ -71,7 +83,6 @@ const styles = StyleSheet.create({ //Editando o estilo da página
 
     title: {
         fontSize: 28,
-        fontWeight: 'bold',
         textAlign: 'center',
         color: colors.heading,
         marginTop: 50,
@@ -107,3 +118,7 @@ const styles = StyleSheet.create({ //Editando o estilo da página
     }
 
 });
+
+function useNavigation() {
+    throw new Error('Function not implemented.');
+}

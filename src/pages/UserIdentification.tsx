@@ -5,14 +5,17 @@ import {
     View,
     Text,
     TextInput,
-    KeyboardAvoidingView, //Responsável por subir o conteúdo da tela quando o teclado é acionado
-} from 'react-native';
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard 
+} from 'react-native'; //Responsável por subir o conteúdo da tela quando o teclado é acionado
 
 import { Button } from '../components/Button';
 
-import { } from '@expo/vector-icons';
+import { } from '@expo/vector-icons'
 import fonts from '../styles/fonts';
 import colors from '../styles/colors';
+import { useNavigation } from '@react-navigation/core';
 
 export function UserIdentification() {
 
@@ -20,16 +23,23 @@ export function UserIdentification() {
     const [isFilled, setIsFilled] = useState(false); //Vetifica se temconteúdo no input
     const [name, setName] = useState<string>(); //Armazena o nome do usuário
 
+
+    const navigation = useNavigation();
+
+    function handleSubmit() {
+        navigation.navigate('Confirmation')
+    }
+
     function handleInputBlur() {
         setIsFocused(false); //Executa se o foco no input for false
         setIsFilled(!!name); //Pega o name quando o foco sair do input
     }
 
-    function handleInputFocus() {   
+    function handleInputFocus() {
         setIsFocused(true); //Executa se o foco no input for true
     }
 
-    function handleInputChange(value: string) { 
+    function handleInputChange(value: string) {
         setIsFocused(!!value) //Executa se o conteúdo dentro do input for verdadeiro
         setName(value) //Armazena o valor do input
 
@@ -39,10 +49,11 @@ export function UserIdentification() {
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={styles.container}>
 
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.content}>
                     <View style={styles.form}>
                         <Text style={styles.emoji}>
-                            { isFilled ? '😎' : '😄' }
+                            {isFilled ? '😎' : '😄'}
                         </Text>
                         <Text style={styles.title}>
                             Como podemos {'\n'}
@@ -59,10 +70,14 @@ export function UserIdentification() {
                             onChangeText={handleInputChange} //
                         />
                         <View style={styles.footer}>
-                            <Button />
+                            <Button
+                                title='Confirmar'
+                                onPress={handleSubmit}
+                            />
                         </View>
                     </View>
                 </View>
+                </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
