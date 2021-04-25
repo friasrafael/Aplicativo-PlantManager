@@ -21,16 +21,16 @@ import colors from '../styles/colors'; //Importou o objeto "colors" dentro da pa
 import fonts from '../styles/fonts'; //Importa o doc.ts que contém as fontes que serão utilizadas no app
 import { Feather } from '@expo/vector-icons'; //Importando biblioteca de ícones do RN. Feather é uma família específica de ícones, existem várias.
 //DESCOMENTAR!!!
-// import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 
 export function Welcome() {
-    //DESCOMENTAR!!
-    // const navigation = useNavigation();
 
-    //DESCOMENTAR!!
-    // function handleStart() {
-    //     navigation.navigate('UserIdentification')
-    // }
+    const navigation = useNavigation();
+
+
+    function handleStart() {
+        navigation.navigate('UserIdentification')
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -54,8 +54,7 @@ export function Welcome() {
                 <TouchableOpacity
                     style={styles.button}
                     activeOpacity={0.7}
-                    //DESCOMENTAR!!
-                    // onPress={handleStart}
+                    onPress={handleStart}
                 >
 
                     <Feather
@@ -69,15 +68,15 @@ export function Welcome() {
     )
 }
 
-const styles = StyleSheet.create({ //Editando o estilo da página
+const styles = StyleSheet.create({
     container: {
-        flex: 1, //Ocupa a tela inteira
+        flex: 1, 
     },
 
     wrapper: {
         flex: 1,
-        alignItems: 'center', //Texto alinhado no centro
-        justifyContent: 'space-around', //Todos os elementos distribuidos por igual
+        alignItems: 'center',
+        justifyContent: 'space-around',
         paddingHorizontal: 20
     },
 
@@ -118,7 +117,3 @@ const styles = StyleSheet.create({ //Editando o estilo da página
     }
 
 });
-
-function useNavigation() {
-    throw new Error('Function not implemented.');
-}
