@@ -15,11 +15,12 @@ import { Button } from '../components/Button';
 import { useRoute } from '@react-navigation/core';
 import { format, isBefore } from 'date-fns';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-import { loadPlant, PlantProps, savePlant } from '../libs/storage';
+import { PlantProps } from '../libs/storage';
 
 import waterdrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
+import { useNavigation } from '@react-navigation/native';
 
 interface Params {
     plant: PlantProps
@@ -31,6 +32,7 @@ export function PlantSave() {
     const [showDatePicker, setShowDatePicker] = useState(Platform.OS == 'ios');
     const route = useRoute();
     const { plant } = route.params as Params;
+    const navigation = useNavigation();
 
     function handleChangeTime(event: Event, dateTime: Date | undefined) {
         if (Platform.OS == 'android') {
@@ -51,18 +53,23 @@ export function PlantSave() {
     }
 
     async function handleSave() {
-        const data = await loadPlant();
-        console.log(data);
+        try {
+            await savePlant({
+                ...plant,
+                dateTimeNotification: selectedDateTime
+            });
 
-        // try {
-        //     await savePlant({
-        //         ... plant,
-        //         dateTimeNotification: selectedDateTime
-        //     });
+            navigation.navigate('Confirmation', {
+                title: 'Tudo certo!',
+                subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado.',
+                buttonTitle: 'Muito obrigado :D',
+                icon: 'hug',
+                nextScreen: 'MyPlants'
+            });
 
-        // }catch {
-        //     Alert.alert('Não foi possível salvar! 😓');
-        // }
+        } catch {
+            Alert.alert('Não foi possível salvar! 😓');
+        }
     }
 
     return (
@@ -87,8 +94,9 @@ export function PlantSave() {
             </View>
 
             <View style={styles.controller}>
-
+                <Text>  {"\n"} {"\n"} </Text>
                 <View style={styles.tipContainer}>
+
                     {/* 
                     <image
                         source={waterdrop}
@@ -96,6 +104,7 @@ export function PlantSave() {
                     /> */}
 
                     <Text style={styles.tipText}>
+
                         {plant.water_tips}
                     </Text>
                 </View>
@@ -199,7 +208,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text,
         color: colors.blue,
         fontSize: 17,
-        textAlign: 'justify'
+        textAlign: 'justify',
     },
 
     alertLabel: {
@@ -222,3 +231,4 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text
     }
 });
+
