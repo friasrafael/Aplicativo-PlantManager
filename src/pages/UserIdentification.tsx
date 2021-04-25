@@ -28,11 +28,15 @@ export function UserIdentification() {
 
     async function handleSubmit() {
         if (!name)
-            return Alert.alert('Queremos saber seu nome! 😢')
+            return Alert.alert('Queremos saber o seu nome! 😢')
 
-        await AsyncStorage.setItem('@plantmanager:user', name);
 
-        navigation.navigate('Confirmation')
+        try {
+            await AsyncStorage.setItem('@plantmanager:user', name);
+            navigation.navigate('Confirmation')
+        } catch {
+            Alert.alert('Não foi possível salvar o seu nome! 😥')
+        }
     }
 
     function handleInputBlur() {
