@@ -13,6 +13,7 @@ import { PlantProps, loadPlant } from '../libs/storage';
 import { pt } from 'date-fns/locale';
 import { formatDistance } from 'date-fns';
 import fonts from '../styles/fonts';
+import { PlantCardSecondary } from '../components/PlantCardSecondary';
 
 export function MyPlants() {
     const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
@@ -37,9 +38,9 @@ export function MyPlants() {
             setLoading(false);
         }
 
-        loadStorageData(); 
+        loadStorageData();
 
-    },[])
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -66,7 +67,9 @@ export function MyPlants() {
                     data={myPlants}
                     keyExtractor={(item) => String(item.id)}
                     renderItem={({ item }) => (
-                        <Text>Elemento</Text>
+                        <PlantCardSecondary
+                            data={item}
+                        />
                     )}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ flex: 1 }}
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 30,
-        paddingTop:  50,
+        paddingTop: 50,
         backgroundColor: colors.background
     },
 
@@ -105,7 +108,6 @@ const styles = StyleSheet.create({
         flex: 1,
         color: colors.blue,
         paddingHorizontal: 20,
-        textAlign: 'justify'
     },
 
     plants: {
